@@ -1,20 +1,13 @@
-<html>
-    <head>
-        <title>Amit's blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">Amit's Blog</a></h1>
-        </div>
+{% extends "blog/base.html" %}
 
-        {% for p in post %}
-            <div>
-                <p>{{p.published_date}}</p>
-                <a href = '/'>
-                    <h2>{{p.title}}</h2>
-                </a>
-                <p>{{p.text}}</p>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                <p>published: {{ post.published_date }}</p>
             </div>
-        {% endfor %}
-    </body>
-</html>
+            <h2><a href={% url "post_details" pk=post.pk %}>{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock content %}
